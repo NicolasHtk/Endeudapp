@@ -5,6 +5,8 @@ const list = document.getElementById('list');
 const form = document.getElementById('form');
 const text = document.getElementById('text');
 const amount = document.getElementById('amount');
+const incomeBtn = document.querySelector('.btn-income');
+const egressBtn = document.querySelector('.btn-egress');
 
 const localStorageTransactions = JSON.parse(
     localStorage.getItem('transactions')
@@ -13,17 +15,37 @@ const localStorageTransactions = JSON.parse(
 let transactions =
     localStorage.getItem('transactions') !== null ? localStorageTransactions : [];
 
-// Add transaction
-function addTransaction(e) {
+
+
+// Event listener for income button
+incomeBtn.addEventListener('click', addIncomeTransaction);
+
+// Event listener for egress button
+egressBtn.addEventListener('click', addEgressTransaction);
+
+// Function to add income transaction
+function addIncomeTransaction(e) {
     e.preventDefault();
 
+    addTransaction(true);
+}
+
+// Function to add egress transaction
+function addEgressTransaction(e) {
+    e.preventDefault();
+
+    addTransaction(false);
+}
+
+// Add transaction
+function addTransaction(isIncome) {
     if (text.value.trim() === '' || amount.value.trim() === '') {
         alert('Please add a text and amount');
     } else {
         const transaction = {
             id: generateID(),
             text: text.value,
-            amount: parseFloat(amount.value.replace(/\./g, '').replace(',', '.'))
+            amount: isIncome ? +parseFloat(amount.value.replace(/\./g, '').replace(',', '.')) : -parseFloat(amount.value.replace(/\./g, '').replace(',', '.'))
         };
 
         transactions.push(transaction);
@@ -38,6 +60,7 @@ function addTransaction(e) {
         amount.value = '';
     }
 }
+
 
 // Generate random ID
 function generateID() {
@@ -114,12 +137,12 @@ function formatoNumero(input) {
 
     // Formatear el número
     valor = formatearNumero(valor);
-    
+
     // Agregar el signo menos si el número es negativo
     if (input.value.includes('-')) {
         valor = '-' + valor;
     }
-    
+
     // Asignar el valor formateado al input
     input.value = valor;
 }

@@ -96,17 +96,27 @@ input[type='number'] {
     width: 100%;
 }
 
-.btn {
+.buttons{
+    display: flex;
+}
+
+.btn{
     cursor: pointer;
-    background-color: #0366D6;
     box-shadow: var(--box-shadow);
     color: #fff;
     border: 0;
     display: block;
     font-size: 16px;
-    margin: 10px 0 30px;
+    margin: 10px 10px 30px;
     padding: 10px;
-    width: 100%;
+    width: 100%;}
+
+.btn-egress{
+    background-color: #d82929;    
+}
+
+.btn-income {
+  background-color: #0366D6;
 }
 
 .btn:focus,
