@@ -6,7 +6,6 @@
 
 * {
     box-sizing: border-box;
-    padding:5px
 }
 
 body {
@@ -31,6 +30,7 @@ header {
 .container {
     margin: 30px auto;
     width: 350px;
+    padding:20px
 }
 
 h1 {
