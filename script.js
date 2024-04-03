@@ -103,9 +103,9 @@ function updateValues() {
         -1
     ).toFixed(2);
 
-    balance.innerText = `$${total}`;
-    money_plus.innerText = `$${income}`;
-    money_minus.innerText = `$${expense}`;
+    balance.innerText = `$${parseFloat(total).toLocaleString('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+    money_plus.innerText = `$${parseFloat(income).toLocaleString('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+    money_minus.innerText = `$${parseFloat(expense).toLocaleString('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
 }
 
 // Remove transaction by ID
