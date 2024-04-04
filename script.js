@@ -1,3 +1,4 @@
+// Elementos del DOM
 const balance = document.getElementById('balance');
 const money_plus = document.getElementById('money-plus');
 const money_minus = document.getElementById('money-minus');
@@ -8,39 +9,37 @@ const amount = document.getElementById('amount');
 const incomeBtn = document.querySelector('.btn-income');
 const egressBtn = document.querySelector('.btn-egress');
 
+// Transacciones almacenadas localmente
 const localStorageTransactions = JSON.parse(
     localStorage.getItem('transactions')
 );
 
+// Arreglo de transacciones
 let transactions =
     localStorage.getItem('transactions') !== null ? localStorageTransactions : [];
 
-
-
-// Event listener for income button
+// Event listener para el botón de ingreso
 incomeBtn.addEventListener('click', addIncomeTransaction);
 
-// Event listener for egress button
+// Event listener para el botón de egreso
 egressBtn.addEventListener('click', addEgressTransaction);
 
-// Function to add income transaction
+// Función para agregar transacción de ingreso
 function addIncomeTransaction(e) {
     e.preventDefault();
-
     addTransaction(true);
 }
 
-// Function to add egress transaction
+// Función para agregar transacción de egreso
 function addEgressTransaction(e) {
     e.preventDefault();
-
     addTransaction(false);
 }
 
-// Add transaction
+// Agregar transacción
 function addTransaction(isIncome) {
     if (text.value.trim() === '' || amount.value.trim() === '') {
-        alert('Please add a text and amount');
+        alert('Por favor, ingresa un texto y un monto.');
     } else {
         const transaction = {
             id: generateID(),
@@ -61,23 +60,22 @@ function addTransaction(isIncome) {
     }
 }
 
-
-// Generate random ID
+// Generar ID aleatorio
 function generateID() {
     return Math.floor(Math.random() * 100000000);
 }
 
-// Add transactions to DOM list
+// Agregar transacciones a la lista del DOM
 function addTransactionDOM(transaction) {
-    // Get sign
+    // Obtener el signo
     const sign = transaction.amount < 0 ? '-' : '+';
 
-    // Formatear la cantidad
+    // Formatear el monto
     const formattedAmount = parseFloat(Math.abs(transaction.amount)).toLocaleString('es-ES');
 
     const item = document.createElement('li');
 
-    // Add class based on value
+    // Agregar clase según el valor
     item.classList.add(transaction.amount < 0 ? 'minus' : 'plus');
 
     item.innerHTML = `
@@ -87,7 +85,7 @@ function addTransactionDOM(transaction) {
     list.appendChild(item);
 }
 
-// Update the balance, income and expense
+// Actualizar el balance, ingreso y egreso
 function updateValues() {
     const amounts = transactions.map(transaction => transaction.amount);
 
@@ -108,7 +106,7 @@ function updateValues() {
     money_minus.innerText = `$${parseFloat(expense).toLocaleString('es-ES')}`;
 }
 
-// Remove transaction by ID
+// Eliminar transacción por ID
 function removeTransaction(id) {
     transactions = transactions.filter(transaction => transaction.id !== id);
 
@@ -117,12 +115,12 @@ function removeTransaction(id) {
     init();
 }
 
-// Update local storage transactions
+// Actualizar transacciones almacenadas localmente
 function updateLocalStorage() {
     localStorage.setItem('transactions', JSON.stringify(transactions));
 }
 
-// Init app
+// Inicializar la aplicación
 function init() {
     list.innerHTML = '';
 
@@ -130,7 +128,7 @@ function init() {
     updateValues();
 }
 
-//decimales en input
+// Formatear decimales en el input
 function formatoNumero(input) {
     // Obtener el valor actual del input
     let valor = input.value.replace(/\D/g, ''); // Eliminar caracteres que no sean dígitos
@@ -147,7 +145,7 @@ function formatoNumero(input) {
     input.value = valor;
 }
 
-
+// Función para formatear el número
 function formatearNumero(amount) {
     // Si el número es mayor o igual a 1000, formatearlo con separadores de miles
     if (parseInt(amount) >= 1000) {
@@ -158,6 +156,8 @@ function formatearNumero(amount) {
     }
 }
 
+// Inicializar la aplicación al cargar la página
 init();
 
+// Event listener para agregar transacción al enviar el formulario
 form.addEventListener('submit', addTransaction);
