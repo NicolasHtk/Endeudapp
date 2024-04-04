@@ -72,17 +72,17 @@ function addTransactionDOM(transaction) {
     // Get sign
     const sign = transaction.amount < 0 ? '-' : '+';
 
+    // Formatear la cantidad
+    const formattedAmount = parseFloat(Math.abs(transaction.amount)).toLocaleString('es-ES');
+
     const item = document.createElement('li');
 
     // Add class based on value
     item.classList.add(transaction.amount < 0 ? 'minus' : 'plus');
 
     item.innerHTML = `
-    ${transaction.text} <span>${sign}${Math.abs(
-        transaction.amount
-    )}</span> <button class="delete-btn" onclick="removeTransaction(${transaction.id
-        })">x</button>
-  `;
+        ${transaction.text} <span>${sign}$${formattedAmount}</span> <button class="delete-btn" onclick="removeTransaction(${transaction.id})">x</button>
+    `;
 
     list.appendChild(item);
 }
@@ -103,9 +103,9 @@ function updateValues() {
         -1
     ).toFixed(2);
 
-    balance.innerText = `$${parseFloat(total).toLocaleString('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-    money_plus.innerText = `$${parseFloat(income).toLocaleString('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-    money_minus.innerText = `$${parseFloat(expense).toLocaleString('es-ES', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+    balance.innerText = `$${parseFloat(total).toLocaleString('es-ES')}`;
+    money_plus.innerText = `$${parseFloat(income).toLocaleString('es-ES')}`;
+    money_minus.innerText = `$${parseFloat(expense).toLocaleString('es-ES')}`;
 }
 
 // Remove transaction by ID
