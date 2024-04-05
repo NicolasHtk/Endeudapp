@@ -71,7 +71,7 @@ function addTransactionDOM(transaction) {
     const sign = transaction.amount < 0 ? '-' : '+';
 
     // Formatear el monto
-    const formattedAmount = parseFloat(Math.abs(transaction.amount)).toLocaleString('es-ES');
+    const formattedAmount = parseFloat(Math.abs(transaction.amount)).toLocaleString('es-CO');
 
     const item = document.createElement('li');
 
@@ -101,9 +101,9 @@ function updateValues() {
         -1
     ).toFixed(2);
 
-    balance.innerText = `$${parseFloat(total).toLocaleString('es-ES')}`;
-    money_plus.innerText = `$${parseFloat(income).toLocaleString('es-ES')}`;
-    money_minus.innerText = `$${parseFloat(expense).toLocaleString('es-ES')}`;
+    balance.innerText = `$${parseFloat(total).toLocaleString('es-CO')}`;
+    money_plus.innerText = `$${parseFloat(income).toLocaleString('es-CO')}`;
+    money_minus.innerText = `$${parseFloat(expense).toLocaleString('es-CO')}`;
 }
 
 // Eliminar transacción por ID
