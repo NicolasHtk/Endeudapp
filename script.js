@@ -161,3 +161,31 @@ init();
 
 // Event listener para agregar transacción al enviar el formulario
 form.addEventListener('submit', addTransaction);
+
+
+// Verificar si el navegador es compatible con PWA y mostrar el mensaje de instalación si es necesario
+if ('serviceWorker' in navigator && window.matchMedia('(display-mode: standalone)').matches === false) {
+    window.addEventListener('load', function() {
+        // Definir el mensaje de instalación
+        const installPrompt = document.getElementById('install-prompt');
+        if (installPrompt) {
+            installPrompt.style.display = 'block';
+            // Agregar un evento de clic al botón de instalación
+            const installButton = document.getElementById('install-button');
+            if (installButton) {
+                installButton.addEventListener('click', function() {
+                    // Solicitar la instalación de la PWA
+                    window.deferredPrompt.prompt();
+                    // Ocultar el mensaje de instalación
+                    installPrompt.style.display = 'none';
+                });
+            }
+        }
+    });
+
+    // Escuchar el evento 'beforeinstallprompt'
+    window.addEventListener('beforeinstallprompt', function(event) {
+        // Guardar el evento para mostrar el mensaje de instalación más tarde
+        window.deferredPrompt = event;
+    });
+}

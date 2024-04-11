@@ -30,7 +30,7 @@ header {
 .container {
     margin: 30px auto;
     width: 350px;
-    padding:20px
+    padding: 20px
 }
 
 h1 {
@@ -97,11 +97,11 @@ input[type='number'] {
     width: 100%;
 }
 
-.buttons{
+.buttons {
     display: flex;
 }
 
-.btn{
+.btn {
     cursor: pointer;
     box-shadow: var(--box-shadow);
     color: #fff;
@@ -110,14 +110,15 @@ input[type='number'] {
     font-size: 16px;
     margin: 10px 10px 30px;
     padding: 10px;
-    width: 100%;}
+    width: 100%;
+}
 
-.btn-egress{
-    background-color: #d82929;    
+.btn-egress {
+    background-color: #d82929;
 }
 
 .btn-income {
-  background-color: #0366D6;
+    background-color: #0366D6;
 }
 
 .btn:focus,
@@ -168,4 +169,34 @@ input[type='number'] {
 
 .list li:hover .delete-btn {
     opacity: 1;
+}
+
+
+#install-prompt {
+    display: none;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: var(--box-shadow);
+    padding: 20px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#install-prompt p {
+    margin: 0 0 15px;
+}
+
+#install-button {
+    cursor: pointer;
+    background-color: #0366D6;
+    color: #fff;
+    border: 0;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#install-button:hover {
+    background-color: #0056b3;
 }
