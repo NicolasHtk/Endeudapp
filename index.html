@@ -12,15 +12,19 @@
     <!-- Favicon -->
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
 
-    <title>Endeudapp</title>
+    <!-- Manifest para pwa -->
+    <link rel="manifest" href="/manifest.json">
+
+
+    <title>Traki</title>
 </head>
 
 <body>
-    
+
     <div class="container">
         <h4>Balance</h4>
         <h1 id="balance">$0.00</h1>
-    
+
         <div class="inc-exp-container">
             <div>
                 <h4>Ingresos</h4>
@@ -31,12 +35,12 @@
                 <p id="money-minus" class="money minus">-$0.00</p>
             </div>
         </div>
-    
+
         <h3>Historial</h3>
         <ul id="list" class="list">
             <!-- List of income and expense  -->
         </ul>
-    
+
         <h3>Nuevo movimiento</h3>
         <form id="form">
             <div class="form-control">
@@ -46,7 +50,7 @@
             <div class="form-control">
                 <label for="amount">Monto <br />
                 </label>
-                <input type="text" id="amount" placeholder="Monto del movimiento..." oninput="formatoNumero(this)"/>
+                <input type="text" id="amount" placeholder="Monto del movimiento..." oninput="formatoNumero(this)" />
             </div>
             <div class="buttons">
                 <button class="btn-income btn">Ingreso</button>
@@ -56,6 +60,17 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('/service-worker.js').then(function (registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function (err) {
+                    console.error('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
 </body>
 
 </html>
