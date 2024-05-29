@@ -200,3 +200,13 @@ input[type='number'] {
 #install-button:hover {
     background-color: #0056b3;
 }
+
+.transaction-date {
+    font-size: 0.8em;
+    color: #888;
+    margin-top: 5px;
+}
+
+.priceAndDate{
+    text-align: end;
+}

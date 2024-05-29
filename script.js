@@ -10,13 +10,10 @@ const incomeBtn = document.querySelector('.btn-income');
 const egressBtn = document.querySelector('.btn-egress');
 
 // Transacciones almacenadas localmente
-const localStorageTransactions = JSON.parse(
-    localStorage.getItem('transactions')
-);
+const localStorageTransactions = JSON.parse(localStorage.getItem('transactions'));
 
 // Arreglo de transacciones
-let transactions =
-    localStorage.getItem('transactions') !== null ? localStorageTransactions : [];
+let transactions = localStorage.getItem('transactions') !== null ? localStorageTransactions : [];
 
 // Event listener para el botón de ingreso
 incomeBtn.addEventListener('click', addIncomeTransaction);
@@ -41,10 +38,12 @@ function addTransaction(isIncome) {
     if (text.value.trim() === '' || amount.value.trim() === '') {
         alert('Por favor, ingresa un texto y un monto.');
     } else {
+        const now = new Date();
         const transaction = {
             id: generateID(),
             text: text.value,
-            amount: isIncome ? +parseFloat(amount.value.replace(/\./g, '').replace(',', '.')) : -parseFloat(amount.value.replace(/\./g, '').replace(',', '.'))
+            amount: isIncome ? +parseFloat(amount.value.replace(/\./g, '').replace(',', '.')) : -parseFloat(amount.value.replace(/\./g, '').replace(',', '.')),
+            date: `${now.toLocaleDateString('es-CO', { year: 'numeric', month: '2-digit', day: '2-digit' })} ${now.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' })}` // Fecha y hora combinadas
         };
 
         transactions.push(transaction);
@@ -79,7 +78,12 @@ function addTransactionDOM(transaction) {
     item.classList.add(transaction.amount < 0 ? 'minus' : 'plus');
 
     item.innerHTML = `
-        ${transaction.text} <span>${sign}$${formattedAmount}</span> <button class="delete-btn" onclick="removeTransaction(${transaction.id})">x</button>
+        ${transaction.text}
+        <div class="priceAndDate">
+            <span class="transaction-amount">${sign}$${formattedAmount}</span>
+            <div class="transaction-date">${transaction.date}</div>
+        </div>
+        <button class="delete-btn" onclick="removeTransaction(${transaction.id})">x</button>
     `;
 
     list.appendChild(item);
@@ -91,15 +95,9 @@ function updateValues() {
 
     const total = amounts.reduce((acc, item) => (acc += item), 0).toFixed(2);
 
-    const income = amounts
-        .filter(item => item > 0)
-        .reduce((acc, item) => (acc += item), 0)
-        .toFixed(2);
+    const income = amounts.filter(item => item > 0).reduce((acc, item) => (acc += item), 0).toFixed(2);
 
-    const expense = (
-        amounts.filter(item => item < 0).reduce((acc, item) => (acc += item), 0) *
-        -1
-    ).toFixed(2);
+    const expense = (amounts.filter(item => item < 0).reduce((acc, item) => (acc += item), 0) * -1).toFixed(2);
 
     balance.innerText = `$${parseFloat(total).toLocaleString('es-CO')}`;
     money_plus.innerText = `$${parseFloat(income).toLocaleString('es-CO')}`;
@@ -161,7 +159,6 @@ init();
 
 // Event listener para agregar transacción al enviar el formulario
 form.addEventListener('submit', addTransaction);
-
 
 // Verificar si el navegador es compatible con PWA y mostrar el mensaje de instalación si es necesario
 if ('serviceWorker' in navigator && window.matchMedia('(display-mode: standalone)').matches === false) {
