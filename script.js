@@ -43,7 +43,7 @@ function addTransaction(isIncome) {
             id: generateID(),
             text: text.value,
             amount: isIncome ? +parseFloat(amount.value.replace(/\./g, '').replace(',', '.')) : -parseFloat(amount.value.replace(/\./g, '').replace(',', '.')),
-            date: `${now.toLocaleDateString('es-CO', { year: 'numeric', month: '2-digit', day: '2-digit' })} ${now.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' })}` // Fecha y hora combinadas
+            date: `${now.toLocaleDateString('es-CO', { year: 'numeric', month: '2-digit', day: '2-digit' })}` // Fecha
         };
 
         transactions.push(transaction);
